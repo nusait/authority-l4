@@ -13,12 +13,14 @@ class AuthorityL4ServiceProvider extends ServiceProvider
      * @return void
      */
     public function register(){
-        $this->package('machuga/authority-l4');
+        $this->publishes([
+            __DIR__.'/../../config/config.php' => config_path('authority.php'),
+        ]);
 
         $this->app['authority'] = $this->app->share(function($app){
             $user = $app['auth']->user();
             $authority = new Authority($user);
-            $fn = $app['config']->get('authority-l4::initialize', null);
+            $fn = $app['config']->get('authority::initialize', null);
 
             if($fn) {
                 $fn($authority);
