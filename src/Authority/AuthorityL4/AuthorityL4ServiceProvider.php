@@ -20,7 +20,7 @@ class AuthorityL4ServiceProvider extends ServiceProvider
         $this->app['authority'] = $this->app->share(function($app){
             $user = $app['auth']->user();
             $authority = new Authority($user);
-            $fn = $app['config']->get('authority::initialize', null);
+            $fn = $app['config']->get('authority.initialize', null);
 
             if($fn) {
                 $fn($authority);
